@@ -2,26 +2,26 @@
 
 ## You are going to learn:
 
----
+```
 How to write and modify the smart contract using OpenZeppelin and Remix
 Get free Testnet/Rinkeby ETH using Alchemy faucets
 Deploy it on the Ethereum Rinkeby testnet blockchain to save on gas fees
 Host the NFT tokens metadata on IPFS using Pinata.
 Mint an NFT and visualize it on OpenSea
----
+```
 
 ## First we are going to write our contract and select the following integrations:
 
----
+```
 Mintable: will create a mint function only callable by privileged accounts
 Autoincrement: IDs will automatically assign incremental IDs to your NFTs
 Enumerable: will give you access to on-chain Tokens enumeration and functions such as “totalSupply”, not present in the default ERC721 integration URI storage, to associate metadata and images to each of your NFTs
 URI Storage: to be able to associate URIs to our NFTs
----
+```
 
 ### Now that you've selected the features you want, the Smart Contract should look as follow:
 
----
+```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
@@ -72,51 +72,51 @@ contract Alchemy is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
----
+
+```
 
 ## Using Remix to Modify the NFT Smart Contract
 
 Starting from the top of the contract, there's the “SPDX-License-Identifier” that specifies the type of license your code will be published under - it’s good practice in web3 applications to keep the code open source as it will ensure trustworthiness.
 
----
+```
 // SPDX-License-Identifier: MIT
----
-
+```
 Then there's the pragma - the version of the compiler you'll want to use to compile the smart contract code. The little “^” symbol, tells the compiler that every version between 0.8.0 to 0.8.9 is suitable to compile our code.
 
----
+```
 pragma solidity ^0.8.4;
----
+```
 
 Then we're importing a bunch of libraries and initializing the smart contract.
 
----
+```
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
----
+```
 
 We're then initializing the contract, inheriting from all the standards we're importing from the OpenZeppelin repository:
 
----
+```
 contract YourContractName is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {...}
----
+```
 
 Now that everyone will be able to mint our NFTs, you'll need to avoid people from minting more NFTs than the max number of NFTs in our collection. To do so let's specify the max number of mintable NFTs.
 
 Let’s say want the users to be able to mint up to a total of 10,000 NFTs. To do so, let’s create a new uint256 variable, call it MAX_SUPPLY, and assign it 1000.
 
----
+```
 uint256 MAX_SUPPLY = 1000;
----
+```
 
 Next, let’s move into the safeMint function and add a require statement:
 
----
+```
 require(_tokenIdCounter.current() <= MAX_SUPPLY, "I'm sorry we reached the cap");
----
+```
 
 ## Create a Free Alchemy Account
 
@@ -139,7 +139,7 @@ Now that the Smart contract is deployed on the Rinkeby testnet, it’s time to m
 ## How to Format Your NFT Metadata
 According to the OpenSea documentation, the NFT Metadata should be stored in a .json file and structured as follow:
 
----
+```
 { 
   "description": "YOUR DESCRIPTION",
   "external_url": "YOUR URL",
@@ -187,7 +187,7 @@ According to the OpenSea documentation, the NFT Metadata should be stored in a .
     }
   }
   
----
+```
 
 ## Creating and Uploading the Metadata on IPFS
 First of all, navigate to Pinata and create a new account.
@@ -195,25 +195,25 @@ Once logged in, click on the Upload button  on the side menu and upload the imag
 Once uploaded click on it and copy the IPFS Gateway URL
 My image can be viewed below:
 
----
+```
 https://gateway.pinata.cloud/ipfs/QmRnV91itVQYckDgvgsdaNF94bjAp2gVojgw5KVgMcNiSE
----
+```
 
 ### Using any text editor, upload the JSON code too on pinata
 My metadata can be viewed below:
 
----
+```
 https://gateway.pinata.cloud/ipfs/Qma6eprPaqfEMBjXjutKhwsdHoQUhZMfbfhiKB6zt6ZmfF
----
+```
 
 ## Mint Your NFT to Opensea
 Go back to Remix and in the Deploy & Run Transactions menu, go under “deployed contracts” - and click on the contract we just deployed, it will open up a list of all the methods contained in your Smart contact:
 
 Click on the safeMint method dropdown icon and paste your address and the following string into the uri field:
 
----
+```
 ipfs://\<your\_metadata\_cid>
----
+```
 
 Clicking on transact will create a Metamask popup prompting you to pay the gas fees.
 
@@ -229,24 +229,16 @@ Great! You just minted your first NFT! 🎉
 ## Visualize Your NFT on OpenSea
 
 Navigate to 
----
+```
 testnets.opensea.io
----
+```
 and log in with your Metamask wallet. Then click on your profile picture, you should see your newly minted NFT there. If the image is not yet visible, click on it, and click on the “refresh metadata” button.
 
 ## Have a Look at my minted NFT at Opensea
 
----
+```
 https://testnets.opensea.io/assets/rinkeby/0x46d3c5d8d0271fa28065882c52b4cf4cdaea4237/2
----
+```
 
 Congratulations, you have successfully created, modified, and deployed your first smart contract. Minted your first NFT, and published your image on IPFS! 🔥
-
-
-
-
-
-
-
-
 
